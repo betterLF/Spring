@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+       <bean id="t1" class="lesson02.Teacher" p:tname="laoli" p:tid="110">
+           <property name="classroom">
+               <list>
+                   <value>A</value>  <!--value子节点方式-->
+                   <value>B</value>
+                   <value>C</value>
+               </list>
+           </property>
+       </bean>
+
+    <bean id="t2" class="lesson02.Teacher" p:tname="laoai" p:tid="119">
+        <property name="classroom">
+            <list>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </list>
+        </property>
+        <property name="students">
+            <list>
+                <ref bean="s4"></ref>
+                <ref bean="s6"></ref>
+            </list>
+            <!--数组方式:<array></array>和<list></list>都可以用来赋值-->
+            <!--set方式:<set></set>用来赋值-->
+        </property>
+    </bean>
+
+    <bean id="t3" class="lesson02.Teacher" p:tname="laozhao" p:tid="120">
+        <property name="classroom">
+            <list>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </list>
+        </property>
+        <property name="students">
+            <list>
+                <ref bean="s4"></ref>
+                <ref bean="s6"></ref>
+            </list>
+        </property>
+        <property name="bossMap">
+            <map>
+                <entry key="001" value="BossLi"></entry>
+                <entry key="002" value="BossQin"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="t4" class="lesson02.Teacher" p:tname="laoqian" p:tid="105">
+      <property name="students" ref="student"></property>
+    </bean>
+    <util:list id="student">
+            <ref bean="s4"></ref>
+            <ref bean="s6"></ref>
+    </util:list>
+<!--util也可以操作array和set-->
+    <util:map id="map">
+        <entry key="11" value="aa"></entry>
+        <entry key="22" value="bb"></entry>
+    </util:map>
+    <bean id="s4" class="lesson02.Student" p:id="04" p:name="dd" p:age="19" p:sex="male"></bean>
+    <bean id="s6" class="lesson02.Student" p:id="06" p:name="ff" p:age="19" p:sex="female" ></bean>
+</beans>

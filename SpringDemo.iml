@@ -7,6 +7,9 @@
           <file>file://$MODULE_DIR$/src/spring-config.xml</file>
           <file>file://$MODULE_DIR$/src/lesson01/conf/personTest.xml</file>
           <file>file://$MODULE_DIR$/src/conf/personTest.xml</file>
+          <file>file://$MODULE_DIR$/src/lesson02/StudentTest.xml</file>
+          <file>file://$MODULE_DIR$/src/conf/beans_TeacherTest.xml</file>
+          <file>file://$MODULE_DIR$/src/conf/beans_CarTest.xml</file>
         </fileset>
       </configuration>
     </facet>

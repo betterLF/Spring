@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       <bean id="s1" class="lesson02.Student">
+<!--property里的name看得是set()方法中set后面的值，是通过set()方法注入-->
+           <property name="id" value="01"></property>
+           <property name="name" value="aa"></property>
+           <property name="age" value="18"></property>
+           <property name="sex" value="male"></property>
+       </bean>
+<!--构造器注入-->
+    <bean id="s2" class="lesson02.Student">
+        <constructor-arg value="02"></constructor-arg>
+        <constructor-arg value="bb"></constructor-arg>
+        <constructor-arg value="20"></constructor-arg>
+        <constructor-arg value="female"></constructor-arg>
+    </bean>
+
+    <bean id="s3" class="lesson02.Student">
+        <constructor-arg value="03"></constructor-arg>
+        <constructor-arg value="cc" ></constructor-arg>
+<!--        <constructor-arg value="90.0" ></constructor-arg>-->
+        <constructor-arg value="90" index="2" type="java.lang.Double" ></constructor-arg>
+<!--如果写的是90，会有两种可能，则可以index指定参数下标，type指定类型来注入-->
+        <constructor-arg value="female"></constructor-arg>
+    </bean>
+    <!--使用p命名空间
+       xmlns:p="http://www.springframework.org/schema/p"
+    -->
+    <bean id="s4" class="lesson02.Student" p:id="04" p:name="dd" p:age="19" p:sex="male"></bean>
+
+    <bean id="s5" class="lesson02.Student">
+        <!--property里的name看得是set()方法中set后面的值，是通过set()方法注入-->
+        <property name="id" value="05"></property>
+        <property name="name" value="ee"></property>
+        <property name="age" value="20"></property>
+        <property name="sex" value="female"></property>
+<!--
+字面量：
+1):可以使用字符串表示的值，可以通过value属性或者value子节点的方式指定(value子节点方式见beans_TeacherTest)
+2):基本数据类型及其封装类,string等类型都可以采取字面值注入的方式
+3):若字面值中包含特殊字符，可以使用<![CDATA[]]>把字面值包裹起来
+ref：指向当前spring管理的某一个bean
+ref：teacher指向当前teacher
+p命名空间 p:teacher-ref
+-->
+        <property name="teacher" ref="teacher"></property>
+<!--可以通过级联来修改teacher的属性-->
+        <property name="teacher.tid" value="101"></property>
+        <property name="teacher.tname" value="tt"></property>
+    </bean>
+
+    <bean id="s6" class="lesson02.Student" p:id="06" p:name="ff" p:age="19" p:sex="female" p:teacher-ref="teacher"></bean>
+
+    <bean id="s7" class="lesson02.Student">
+        <property name="id" value="07"></property>
+        <property name="name" value="gg"></property>
+        <property name="age" value="20"></property>
+        <property name="sex" value="male"></property>
+        <property name="teacher"> <!--内部bean，此内部bean只属于s7-->
+            <bean id="teacher02" class="lesson02.Teacher">
+                <property name="tid" value="222"></property>
+                <property name="tname" value="ttt"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="teacher" class="lesson02.Teacher" p:tid="100" p:tname="tt"></bean>
+</beans>
