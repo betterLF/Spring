@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- autowire:根据某种策略自动为非字面量装配
+      byName:通过属性名和spring容器中bean的id进行比较，若一致则可自动装配
+      byType:通过spring容器中bean的类型，为兼容性的属性赋值(类的子类和接口的实现类也可)
+      在使用byType的过程中，要求spring容器中一个class类只能出现一次(bean)
+      选用建议:问题1:当设置autowire属性时，会作用于该bean中所有的非字面量属性,因此谁都不用
+      -->
+    <bean id="employee" class="lesson03.auto.Employee" autowire="byType">
+           <property name="eid" value="1001"></property>
+           <property name="ename" value="aa"></property>
+<!--           <property name="car" ref="car"></property>-->
+<!--           <property name="department" ref="department"></property>-->
+       </bean>
+    <bean id="car" class="lesson03.auto.Car">
+        <property name="cid" value="6666"></property>
+        <property name="cname" value="奔驰"></property>
+    </bean>
+    <bean id="department" class="lesson03.auto.Department">
+        <property name="did" value="1111"></property>
+        <property name="dname" value="测试部"></property>
+    </bean>
+</beans>

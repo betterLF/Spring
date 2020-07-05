@@ -10,6 +10,11 @@
           <file>file://$MODULE_DIR$/src/lesson02/StudentTest.xml</file>
           <file>file://$MODULE_DIR$/src/conf/beans_TeacherTest.xml</file>
           <file>file://$MODULE_DIR$/src/conf/beans_CarTest.xml</file>
+          <file>file://$MODULE_DIR$/src/conf2/baen_student.xml</file>
+          <file>file://$MODULE_DIR$/src/conf2/bean_person.xml</file>
+          <file>file://$MODULE_DIR$/src/conf2/dataSource.xml</file>
+          <file>file://$MODULE_DIR$/src/conf2/autobean_employee.xml</file>
+          <file>file://$MODULE_DIR$/src/conf2/user.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -22,5 +27,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Spring-5.2.3.RELEASE" level="project" />
+    <orderEntry type="library" name="druid-1.1.10" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.7-bin" level="project" />
   </component>
 </module>
