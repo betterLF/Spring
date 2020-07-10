@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <context:component-scan  base-package="lesson06.book_xml"></context:component-scan>
+    <!--     创建数据源-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="/conf4/db.properties"></property>
+    </bean>
+    <!--    <context:property-placeholder location="/conf4/db.properties"/>-->
+    <!-- 通过数据源配置JDBCTemplate-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--配置事物管理器,不管使用注解方式或者xml方式一定要有dataSourceTransactionManager事务管理器的支持-->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>  <!--管理名为dataSource的连接对象-->
+    </bean>
+<!--配置事物通知-->
+    <tx:advice id="tx" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+<!--在设置好的切入点表达式下再次进行事务设置-->
+            <tx:method name="buyBook" ></tx:method>
+            <tx:method name="checkOut"></tx:method>
+            <!--只有以select*开头的方法被事务管理-->
+            <tx:method name="select*" read-only="true"></tx:method>
+            <tx:method name="insert*"></tx:method>
+            <tx:method name="*"></tx:method>   <!--所有方法-->
+        </tx:attributes>
+    </tx:advice>
+<!--配置切入点表达式-->
+    <aop:config >
+        <aop:pointcut id="pointCut" expression="execution(* lesson06.book_xml.Service.*.*(..))"/>
+<!--将事务通知与切入点表达式联系起来-->
+        <aop:advisor advice-ref="tx" pointcut-ref="pointCut"></aop:advisor>
+    </aop:config>
+</beans>
